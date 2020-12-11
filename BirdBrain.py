@@ -340,7 +340,7 @@ class Microbit:
         response = response_request.read().decode('utf-8')
         if(response == "Not Connected"):
             print(NO_CONNECTION)
-            sys.exit()
+            #sys.exit()
 
         time.sleep(0.01)        # Hack to prevent http requests from overloading the BlueBird Connector
         return response
@@ -758,7 +758,7 @@ class Finch(Microbit):
         """Print error, shutdown robot, and exit python"""
         print(msg)
         self.stopAll()
-        sys.exit()
+        #sys.exit()
 
 
     def __isFinch(self):
