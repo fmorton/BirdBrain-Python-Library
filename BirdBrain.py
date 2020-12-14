@@ -335,7 +335,8 @@ class Microbit:
             response_request =  urllib.request.urlopen(http_request)
         except:
             print(CONNECTION_SERVER_CLOSED)
-            sys.exit();
+            return
+            #sys.exit();
 
         response = response_request.read().decode('utf-8')
         if(response == "Not Connected"):
@@ -362,7 +363,7 @@ class Microbit:
                 response = 0
         except:
             print(CONNECTION_SERVER_CLOSED)
-            sys.exit()
+            #sys.exit()
         time.sleep(0.01)        # Hack to prevent http requests from overloading the BlueBird Connector
         return response
  
@@ -399,11 +400,11 @@ class Microbit:
             response_request =  urllib.request.urlopen(http_request)
         except:
             print(CONNECTION_SERVER_CLOSED)
-            sys.exit();
+            #sys.exit();
         response = response_request.read().decode('utf-8')
         if(response == "Not Connected"):
             print(NO_CONNECTION)
-            sys.exit()
+            #sys.exit()
         time.sleep(0.01)        # Hack to prevent http requests from overloading the BlueBird Connector
         return response
 
@@ -417,7 +418,8 @@ class Microbit:
             response_request =  urllib.request.urlopen(http_request)
         except:
             print(CONNECTION_SERVER_CLOSED)
-            sys.exit();
+            return
+            #sys.exit();
         if(response_request.read() == b'200'):
             response = 1
         else :
@@ -718,7 +720,7 @@ class Hummingbird(Microbit):
             response_request =  urllib.request.urlopen(http_request)
         except:
             print(CONNECTION_SERVER_CLOSED)
-            sys.exit();
+            #sys.exit();
         if(response_request.read() == b'200'):
             response = 1
         else :
