@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
 #https://realpython.com/python-gui-tkinter/
 #https://docs.python.org/3/library/tkinter.html
+#This gui requires python3.
 
 
 from BirdBrain import Finch
@@ -13,6 +15,42 @@ fontName = "Arial"
 btnFontSize = 30 
 lblFontSize = 18
 backgroundColor="#62BCC7" #fountain blue
+
+#Translatable text
+english = {
+    'NotConnected': "Finch Not Connected",
+    'BuzzerOK': "Buzzer ok? \n(Did you hear a tone at the normal volume?)",
+    'LEDsOK': "LEDs ok? \n(Did all 5 LEDs turn red, green, and blue?)",
+    'MotorsOK': "Motors ok? \n(Did the finch drive straight forward, then backward, then turn?)",
+    'MaxSensorsInstr': "Hold the finch up in the air with the beak pointed into the distance.",
+    'MinSensorsInstr': "Place the finch in a dark box with the lid closed.",
+
+    'Max': "MAX Sensor Results",
+    'Distance': "Distance",
+    'LightL': "Left Light",
+    'LightR': "Right Light",
+    'LineL': "Left Line",
+    'LineR': "Right Line",
+    'MaxTot': "Max Sensors Total",
+    'Min': "MIN Sensor Results",
+    'MinTot': "Min Sensors Total",
+
+    'Pass': "PASS",
+    'Fail': "FAIL",
+
+    'Results': "Final Results",
+    'Tot': "TOTAL",
+
+    'Buzzer': "Buzzer",
+    'Motors': "Motors",
+    'LEDs': "LEDs",
+    'MaxSensors': "Max Sensors",
+    'MinSensors': "Min Sensors",
+    'Title': "Finch Quality Control",
+    'Start': "Start"
+    }
+
+strings = english
 
 
 def start_test(event):
@@ -57,7 +95,7 @@ def results(success):
 
 def test_buzzer():
     myFinch.playNote(60, 1)
-    question.configure(text="Buzzer ok? \n(Did you hear a tone at the normal volume?)")
+    question.configure(text=strings['BuzzerOK'])
     pack_response()
 
 
@@ -73,7 +111,7 @@ def test_leds():
     myFinch.setTail("all", 0, 0, 100)
     time.sleep(pauseTime)
     myFinch.stopAll()
-    question.configure(text="LEDs ok? \n(Did all 5 LEDs turn red, green, and blue?)")
+    question.configure(text=strings['LEDsOK'])
     pack_response()
     
     
@@ -81,12 +119,12 @@ def test_motors():
     myFinch.setMove('F', 15.9, 50)
     myFinch.setMove('B', 15.9, 50)
     myFinch.setTurn('R', 90, 50)
-    question.configure(text="Motors ok? \n(Did the finch drive straight forward, then backward, then turn?)")
+    question.configure(text=strings['MotorsOK'])
     pack_response()
 
 
 def test_max_sensors():
-    lbl_instructions.configure(text="Hold the finch up in the air with the beak pointed into the distance (check for missing screws?).")
+    lbl_instructions.configure(text=strings['MaxSensorsInstr'])
     btn_done.bind("<Button-1>", lambda event: check_max_sensors())
     frm_instructions.pack()
 
@@ -99,20 +137,20 @@ def check_max_sensors():
     line_left = myFinch.getLine("L")
     line_right = myFinch.getLine("R")
     distance = myFinch.getDistance()
-    maxSensorResults = "MAX Sensor Results:\n\tDistance: " + str(distance) + \
-        "\n\tLeft Light: " + str(light_left) + "\n\tRight Light: " + str(light_right) + \
-        "\n\tLeft Line: " + str(line_left) + "\n\tRight Line: " + str(line_right) + \
-        "\nMax Sensors Total"
+    maxSensorResults = strings['Max'] + ":\n\t" + strings['Distance'] + ": " + str(distance) + \
+        "\n\t" + strings['LightL'] + ": " + str(light_left) + "\n\t" + strings['LightR'] + ": " + str(light_right) + \
+        "\n\t" + strings['LineL'] + ": " + str(line_left) + "\n\t" + strings['LineR'] + ": " + str(line_right) + \
+        "\n" + strings['MaxTot']
     test_label_list[current_test] = maxSensorResults
-    success = (light_left > 5 and light_right > 5 and line_left < 50 and line_right < 50 and distance > 100)
+    success = (light_left > 5 and light_right > 5 and line_left < 60 and line_right < 60 and distance > 60)
     btn_ok.bind("<Button-1>", lambda event: results(success))
     btn_recheck.bind("<Button-1>", lambda event: check_max_sensors())
-    lbl_sensor_results.configure(text=(maxSensorResults + ": " + ("PASS" if success else "FAIL")))
+    lbl_sensor_results.configure(text=(maxSensorResults + ": " + (strings['Pass'] if success else strings['Fail'])))
     frm_sensor_results.pack()
 
 
 def test_min_sensors():
-    lbl_instructions.configure(text="Place the finch in a dark box with the lid closed")
+    lbl_instructions.configure(text=strings['MinSensorsInstr'])
     btn_done.bind("<Button-1>", lambda event: check_min_sensors())
     frm_instructions.pack()
 
@@ -125,27 +163,27 @@ def check_min_sensors():
     line_left = myFinch.getLine("L")
     line_right = myFinch.getLine("R")
     distance = myFinch.getDistance()
-    minSensorResults = "MIN Sensor Results:\n\tDistance: " + str(distance) + \
-        "\n\tLeft Light: " + str(light_left) + "\n\tRight Light: " + str(light_right) + \
-        "\n\tLeft Line: " + str(line_left) + "\n\tRight Line: " + str(line_right) + \
-        "\nMax Sensors Total"
+    minSensorResults = strings['Min'] + ":\n\t" + strings['Distance'] + ": " + str(distance) + \
+        "\n\t" + strings['LightL'] + ": " + str(light_left) + "\n\t" + strings['LightR'] + ": " + str(light_right) + \
+        "\n\t" + strings['LineL'] + ": " + str(line_left) + "\n\t" + strings['LineR'] + ": " + str(line_right) + \
+        "\n" + strings['MinTot']
     test_label_list[current_test] = minSensorResults
     success = (light_left < 5 and light_right < 5 and line_left > 90 and line_right > 90 and distance < 20)
     btn_ok.bind("<Button-1>", lambda event: results(success))
     btn_recheck.bind("<Button-1>", lambda event: check_min_sensors())
-    lbl_sensor_results.configure(text=(minSensorResults + ": " + ("PASS" if success else "FAIL")))
+    lbl_sensor_results.configure(text=(minSensorResults + ": " + (strings['Pass'] if success else strings['Fail'])))
     frm_sensor_results.pack()
           
 
 def display_results():
-    resultsString = "Test Results:"
+    resultsString = strings['Results'] + ":"
     finchDidPass = True
     for i in range(0, len(test_list)):
         finchDidPass = (finchDidPass and test_results[i])
-        thisResult = "Pass" if test_results[i] else "Fail"
+        thisResult = strings['Pass'] if test_results[i] else strings['Fail']
         resultsString = resultsString + "\n" + test_label_list[i] + ": " + thisResult
 
-    resultsString = resultsString + "\n\nTOTAL: " + ("PASS" if finchDidPass else "FAIL")
+    resultsString = resultsString + "\n\n" + strings['Tot'] + ": " + (strings['Pass'] if finchDidPass else strings['Fail'])
     color = "#f57c73"
     if finchDidPass:
         color = "#9afa82"
@@ -154,25 +192,25 @@ def display_results():
 
 
 test_list = [test_buzzer, test_motors, test_leds,  test_max_sensors, test_min_sensors]
-test_label_list = ["Buzzer", "Motors", "LEDs", "Max Sensors", "Min Sensors"]
+test_label_list = [strings['Buzzer'], strings['Motors'], strings['LEDs'], strings['MaxSensors'], strings['MinSensors']]
 test_results = [True, True, True, True, True]
 current_test = 0
 
 #Configure the main window
 window = tk.Tk()
 #https://stackoverflow.com/questions/36575890/how-to-set-a-tkinter-window-to-a-constant-size
-window.title('Finch Quality Control')
+window.title(strings['Title'])
 window.geometry("500x700")
-window.resizable(0,0)
+#window.resizable(0,0)
 window.configure(bg=backgroundColor)
 
 #Configure the static area at the top of the window
 frm_static = tk.Frame(bg=backgroundColor)
 btn_start = tk.Button(
     master=frm_static,
-    text="Start",
-    width=5,
-    height=2,
+    text=strings['Start'],
+#    width=5,
+#    height=2,
     fg="green",
     font=(fontName, btnFontSize + 10),
     highlightbackground=backgroundColor
@@ -192,7 +230,7 @@ btn_yes.grid(padx=25, row=0, column=0)
 btn_no = tk.Button(master=frm_buttons, text="X", fg="red", highlightbackground="red", font=(fontName, btnFontSize))
 btn_no.bind("<Button-1>", lambda event, s=False: results(s))
 btn_no.grid(padx=25, row=0, column=1)
-btn_retry = tk.Button(master=frm_buttons, text="↺ ↩ \U0001f501", highlightbackground=backgroundColor, font=(fontName, btnFontSize - 10)) #https://charbase.com/block/arrows
+btn_retry = tk.Button(master=frm_buttons, text="↺", highlightbackground=backgroundColor, font=(fontName, btnFontSize - 10)) #https://charbase.com/block/arrows
 btn_retry.bind("<Button-1>", lambda event: next_test())
 btn_retry.grid(padx=25, row=0, column=3)
 frm_buttons.pack()
@@ -219,6 +257,6 @@ lbl_results = tk.Label(master=frm_results, font=(fontName, lblFontSize), justify
 lbl_results.pack()
 
 #Configure an error message for when no finch is connected
-lbl_error = tk.Label(text="Finch Not Connected", font=(fontName, lblFontSize), justify="center", bg=backgroundColor)
+lbl_error = tk.Label(text=strings['NotConnected'], font=(fontName, lblFontSize), justify="center", bg=backgroundColor)
 
 window.mainloop()
