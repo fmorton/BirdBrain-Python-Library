@@ -11,7 +11,7 @@ import tkinter as tk
 
 myFinch = Finch('A')
 
-fontName = "Arial"
+fontName = "Courier" #"Arial"
 btnFontSize = 30 
 lblFontSize = 18
 backgroundColor="#62BCC7" #fountain blue
@@ -50,7 +50,40 @@ english = {
     'Start': "Start"
     }
 
-strings = english
+chinese = {
+    'NotConnected':  "Finch 没有连接",
+    'BuzzerOK': "蜂鸣器正常？\n你能听到一个正常音量的声响吗？",
+    'LEDsOK': "LED 正常？\n5个LED 显示红 绿 和兰色 吗？",
+    'MotorsOK': "马达正常？\nFinch能向前，然后向后，然后转弯？",
+    'MaxSensorsInstr': "阻挡Finch ,它的嘴应对着没有障碍物的方向",
+    'MinSensorsInstr': "把Finch 放入不透光的盒子里，盖上盖子",
+
+    'Max': "最大感应结果",
+    'Distance': "距离",
+    'LightL': "左灯",
+    'LightR': "右灯",
+    'LineL': "左线",
+    'LineR': "右线",
+    'MaxTot': "总的最大感应",
+    'Min': "最小感应结果",
+    'MinTot': "总的最小感应",
+
+    'Pass': "通过",
+    'Fail': "不合格",
+
+    'Results': "最后结果",
+    'Tot': "总计",
+
+    'Buzzer': "蜂鸣器",
+    'Motors': "马达",
+    'LEDs': "LED灯",
+    'MaxSensors': "最大感应器",
+    'MinSensors': "最小感应器",
+    'Title': "Finch 质量控制",
+    'Start': "开始"
+    }
+
+strings = chinese
 
 
 def start_test(event):
@@ -130,23 +163,13 @@ def test_max_sensors():
 
 
 def check_max_sensors():
-    frm_instructions.pack_forget()
-    window.update()
-    light_left = myFinch.getLight("L")
-    light_right = myFinch.getLight("R")
-    line_left = myFinch.getLine("L")
-    line_right = myFinch.getLine("R")
-    distance = myFinch.getDistance()
-    maxSensorResults = strings['Max'] + ":\n\t" + strings['Distance'] + ": " + str(distance) + \
-        "\n\t" + strings['LightL'] + ": " + str(light_left) + "\n\t" + strings['LightR'] + ": " + str(light_right) + \
-        "\n\t" + strings['LineL'] + ": " + str(line_left) + "\n\t" + strings['LineR'] + ": " + str(line_right) + \
-        "\n" + strings['MaxTot']
-    test_label_list[current_test] = maxSensorResults
-    success = (light_left > 5 and light_right > 5 and line_left < 60 and line_right < 60 and distance > 60)
-    btn_ok.bind("<Button-1>", lambda event: results(success))
     btn_recheck.bind("<Button-1>", lambda event: check_max_sensors())
-    lbl_sensor_results.configure(text=(maxSensorResults + ": " + (strings['Pass'] if success else strings['Fail'])))
-    frm_sensor_results.pack()
+    sensors_check(
+        strings['Max'],
+        strings['MaxTot'],
+        [60, 5, 5, 60, 60],
+        False
+    )
 
 
 def test_min_sensors():
@@ -156,22 +179,41 @@ def test_min_sensors():
 
 
 def check_min_sensors():
+    btn_recheck.bind("<Button-1>", lambda event: check_min_sensors())
+    sensors_check(
+        strings['Min'],
+        strings['MinTot'],
+        [20, 5, 5, 10, 10],
+        True
+    )
+
+
+def sensors_check(title, total, thresholds, minimum):
     frm_instructions.pack_forget()
     window.update()
-    light_left = myFinch.getLight("L")
-    light_right = myFinch.getLight("R")
-    line_left = myFinch.getLine("L")
-    line_right = myFinch.getLine("R")
-    distance = myFinch.getDistance()
-    minSensorResults = strings['Min'] + ":\n\t" + strings['Distance'] + ": " + str(distance) + \
-        "\n\t" + strings['LightL'] + ": " + str(light_left) + "\n\t" + strings['LightR'] + ": " + str(light_right) + \
-        "\n\t" + strings['LineL'] + ": " + str(line_left) + "\n\t" + strings['LineR'] + ": " + str(line_right) + \
-        "\n" + strings['MinTot']
-    test_label_list[current_test] = minSensorResults
-    success = (light_left < 5 and light_right < 5 and line_left > 90 and line_right > 90 and distance < 20)
+
+    names = [strings['Distance'], strings['LightL'], strings['LightR'], strings['LineL'], strings['LineR']]
+
+    values = []
+    values.append(myFinch.getDistance())
+    values.append(myFinch.getLight("L"))
+    values.append(myFinch.getLight("R"))
+    values.append(myFinch.getLine("L"))
+    values.append(myFinch.getLine("R"))
+    
+    success = True
+    resultsText = title + ":"
+    for i in range(0, len(names)):
+        resultsText = resultsText + "\n    " + names[i] + ": " + str(values[i])
+        thisSuccess = (values[i] < thresholds[i]) if (minimum ^ (i>2)) else (values[i] > thresholds[i])
+        success = success and thisSuccess
+        if not thisSuccess:
+            resultsText = resultsText + " (" + strings['Fail'] + ")"
+    
+    resultsText = resultsText + "\n" + total
+    test_label_list[current_test] = resultsText
     btn_ok.bind("<Button-1>", lambda event: results(success))
-    btn_recheck.bind("<Button-1>", lambda event: check_min_sensors())
-    lbl_sensor_results.configure(text=(minSensorResults + ": " + (strings['Pass'] if success else strings['Fail'])))
+    lbl_sensor_results.configure(text=(resultsText + ": " + (strings['Pass'] if success else strings['Fail'])))
     frm_sensor_results.pack()
           
 
