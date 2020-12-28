@@ -83,7 +83,7 @@ chinese = {
     'Start': "开始"
     }
 
-strings = chinese
+strings = english
 
 
 def start_test(event):
