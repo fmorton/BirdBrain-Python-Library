@@ -50,7 +50,7 @@ Overview
 
 .. end-badges
 
-Python Library for Hummingbird Bit and Finch 2
+Python Library for Birdbrain Technologies Hummingbird Bit and Finch 2
 
 * Free software: GNU Lesser General Public License v3 (LGPLv3)
 
