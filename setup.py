@@ -20,11 +20,11 @@ def read(*names, **kwargs):
 
 setup(
     name='birdbrain-python-library',
-    version='0.0.2',
+    version='0.0.3',
     license='LGPL-3.0-only',
     description='Python Library for Hummingbird Bit and Finch 2',
     long_description='{}\n{}'.format(
-        re.compile('^.. start-badges.*^.. end-badges', re.M | re.S).sub('', read('README.rst')),
+        re.compile('^.. start-badges.*^.. end-badges', re.M | re.S).sub('', read('README.md')),
         re.sub(':[a-z]+:`~?(.*?)`', r'``\1``', read('CHANGELOG.rst')),
     ),
     author='Frank Morton',
