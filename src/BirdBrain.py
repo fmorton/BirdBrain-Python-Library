@@ -490,7 +490,23 @@ class Microbit:
             response = 0
         time.sleep(0.01)        # Hack to prevent http requests from overloading the BlueBird Connector
         return response
-    
+
+    ######## Microbit Aliases ########
+    acceleration = getAcceleration
+    button = getButton
+    compass = getCompass
+    display = setDisplay
+    is_connection_valid = isConnectionValid
+    is_microbit = isMicrobit
+    is_shaking = isShaking
+    magnetometer = getMagnetometer
+    orientation = getOrientation
+    play_note = playNote
+    point = setPoint
+    sound = getSound
+    stop_all = stopAll
+    temperature = getTemperature
+
     ######## END class Microbit ########
 
 
@@ -766,6 +782,21 @@ class Hummingbird(Microbit):
         return response
 
 
+    ######## Hummingbird Aliases ########
+    dial = getDial
+    distance = getDistance
+    is_hummingbird = isHummingbird
+    is_port_valid = isPortValid
+    led = setLED
+    light = getLight
+    position_servo = setPositionServo
+    rotation_servo = setRotationServo
+    sensor = getSensor
+    sound = getSound
+    #stop_all = stopAll
+    #temperature = getTemperature
+    tri_led = setTriLED
+    voltage = getVoltage
     
     ######## END class Hummingbird ########
 
@@ -1117,6 +1148,20 @@ class Finch(Microbit):
         #If we are in a state in which none of the above seven states are true
         return "In between"
 
+    ######## Finch Aliases ########
+    acceleration = getAcceleration
+    beak = setBeak
+    compass = getCompass
+    distance = getDistance
+    encoder = getEncoder
+    light = getLight
+    line = getLine
+    magnetometer = getMagnetometer
+    motors = setMotors
+    move = setMove
+    orientation = getOrientation
+    reset_encoders = resetEncoders
+    tail = setTail
+    turn = setTurn
 
     ######## END class Finch ########
-    
