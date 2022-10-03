@@ -23,11 +23,11 @@ Overview
     :alt: GitHub Actions Build Status
     :target: https://github.com/fmorton/BirdBrain-Python-Library/actions
 
-.. |requires| image:: https://requires.io/github/fmorton/BirdBrain-Python-Library/requirements.svg?branch=original_for_pypi
+.. |requires| image:: https://requires.io/github/fmorton/BirdBrain-Python-Library/requirements.svg?branch=main
     :alt: Requirements Status
-    :target: https://requires.io/github/fmorton/BirdBrain-Python-Library/requirements/?branch=original_for_pypi
+    :target: https://requires.io/github/fmorton/BirdBrain-Python-Library/requirements/?branch=main
 
-.. |codecov| image:: https://codecov.io/gh/fmorton/BirdBrain-Python-Library/branch/original_for_pypi/graphs/badge.svg?branch=original_for_pypi
+.. |codecov| image:: https://codecov.io/gh/fmorton/BirdBrain-Python-Library/branch/main/graphs/badge.svg?branch=main
     :alt: Coverage Status
     :target: https://codecov.io/github/fmorton/BirdBrain-Python-Library
 
@@ -49,7 +49,7 @@ Overview
 
 .. |commits-since| image:: https://img.shields.io/github/commits-since/fmorton/BirdBrain-Python-Library/v0.0.1.svg
     :alt: Commits since latest release
-    :target: https://github.com/fmorton/BirdBrain-Python-Library/compare/v0.0.1...original_for_pypi
+    :target: https://github.com/fmorton/BirdBrain-Python-Library/compare/v0.0.1...main
 
 
 
@@ -68,7 +68,7 @@ Installation
 
 You can also install the in-development version with::
 
-    pip install https://github.com/fmorton/BirdBrain-Python-Library/archive/original_for_pypi.zip
+    pip install https://github.com/fmorton/BirdBrain-Python-Library/archive/main.zip
 
 
 Documentation
