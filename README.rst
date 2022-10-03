@@ -47,11 +47,6 @@ Overview
     :alt: Supported implementations
     :target: https://pypi.org/project/birdbrain-python-library
 
-.. |commits-since| image:: https://img.shields.io/github/commits-since/fmorton/BirdBrain-Python-Library/v0.0.1.svg
-    :alt: Commits since latest release
-    :target: https://github.com/fmorton/BirdBrain-Python-Library/compare/v0.0.1...main
-
-
 
 .. end-badges
 
