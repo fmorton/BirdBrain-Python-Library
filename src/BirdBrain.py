@@ -59,7 +59,7 @@ class Microbit:
         """Called when the class is initialized."""
 
         # Check if the letter of the device is valid, exit otherwise
-        if('ABC'.find(device) != -1):
+        if ('ABC'.find(device) != -1):
             self.device_s_no = device
             # Check if the device is connected and if it is a micro:bit
             if not self.isConnectionValid():
@@ -89,7 +89,7 @@ class Microbit:
             return False
         response = response_request.read().decode('utf-8')
 
-        if(response == "Not Connected"):
+        if (response == "Not Connected"):
             print("Error: Device " + str(self.device_s_no) + " is not connected")
             return False
         return True
@@ -128,7 +128,7 @@ class Microbit:
 
         new_str = ""
         for letter in value:
-            if(letter == 0):
+            if (letter == 0):
                 new_str += "false/"
             else:  # All nonzero values become true
                 new_str += "true/"
@@ -158,7 +158,7 @@ class Microbit:
 
         # Check if LED_string is valid to be printed on the display
         # Check if the length of the array to form a symbol not equal than 25
-        if(len(LEDlist) != 25):
+        if (len(LEDlist) != 25):
             print("Error: setDisplay() requires a list of length 25")
             return             # if the array is the wrong length, don't want to do anything else
 
@@ -251,7 +251,7 @@ class Microbit:
             else:
                 values.append(round(float(response), 3))
 
-        return(values[0], values[1], values[2])
+        return (values[0], values[1], values[2])
 
     def getAcceleration(self):
         """Gives the acceleration of X,Y,Z in m/sec2."""
@@ -278,15 +278,15 @@ class Microbit:
 
         button = button.upper()
         # Check if the button A and button B are represented in a valid manner
-        if((button != 'A') and (button != 'B') and (button != 'LOGO')):
+        if ((button != 'A') and (button != 'B') and (button != 'LOGO')):
             print("Error: Button must be A, B, or Logo.")
             sys.exit()
         # Send HTTP request
         response = self.send_httprequest_micro_in("button", button)
         # Convert to boolean form
-        if(response == "true"):
+        if (response == "true"):
             button_value = True
-        elif(response == "false"):
+        elif (response == "false"):
             button_value = False
         else:
             print("Error in getButton: " + response)
@@ -327,7 +327,7 @@ class Microbit:
 
         # Send HTTP request
         response = self.send_httprequest_micro_in("Shake", None)
-        if(response == "true"):  # convert to boolean
+        if (response == "true"):  # convert to boolean
             shake = True
         else:
             shake = False
@@ -345,7 +345,7 @@ class Microbit:
         # Check for orientation of each device and if true return that state
         for targetOrientation in orientations:
             response = self.send_httprequest_micro_in(targetOrientation, None)
-            if(response == "true"):
+            if (response == "true"):
                 return orientation_result[orientations.index(targetOrientation)]
 
         # If we are in a state in which none of the above seven states are true
@@ -371,7 +371,7 @@ class Microbit:
             sys.exit()
 
         response = response_request.read().decode('utf-8')
-        if(response == "Not Connected"):
+        if (response == "Not Connected"):
             print(NO_CONNECTION)
             sys.exit()
 
@@ -382,13 +382,13 @@ class Microbit:
         """Utility function to arrange and send the http request for microbit output functions."""
 
         # Print command
-        if(peri == "print"):
+        if (peri == "print"):
             http_request = self.base_request_out + "/" + peri + "/" + str(value) + "/" + str(self.device_s_no)
-        elif(peri == "symbol"):
+        elif (peri == "symbol"):
             http_request = self.base_request_out + "/" + peri + "/" + str(self.device_s_no) + "/" + str(value)
         try:
             response_request = urllib.request.urlopen(http_request)
-            if(response_request.read() == b'200'):
+            if (response_request.read() == b'200'):
                 response = 1
             else:
                 response = 0
@@ -401,27 +401,27 @@ class Microbit:
     def send_httprequest_micro_in(self, peri, value):
         """Utility function to arrange and send the http request for microbit input functions."""
 
-        if(peri == "Accelerometer"):
+        if (peri == "Accelerometer"):
             http_request = self.base_request_in + "/" + peri + "/" + str(value) + "/" + str(self.device_s_no)
-        elif(peri == "Compass"):
+        elif (peri == "Compass"):
             http_request = self.base_request_in + "/" + peri + "/" + str(self.device_s_no)
-        elif(peri == "Magnetometer"):
+        elif (peri == "Magnetometer"):
             http_request = self.base_request_in + "/" + peri + "/" + str(value) + "/" + str(self.device_s_no)
-        elif(peri == "button"):
+        elif (peri == "button"):
             http_request = self.base_request_in + "/" + peri + "/" + str(value) + "/" + str(self.device_s_no)
-        elif(peri == "Shake"):
+        elif (peri == "Shake"):
             http_request = self.base_request_in + "/" + "orientation" + "/" + peri + "/" + str(self.device_s_no)
-        elif(peri == "Screen%20Up"):
+        elif (peri == "Screen%20Up"):
             http_request = self.base_request_in + "/" + "orientation" + "/" + peri + "/" + str(self.device_s_no)
-        elif(peri == "Screen%20Down"):
+        elif (peri == "Screen%20Down"):
             http_request = self.base_request_in + "/" + "orientation" + "/" + peri + "/" + str(self.device_s_no)
-        elif(peri == "Tilt%20Right"):
+        elif (peri == "Tilt%20Right"):
             http_request = self.base_request_in + "/" + "orientation" + "/" + peri + "/" + str(self.device_s_no)
-        elif(peri == "Tilt%20Left"):
+        elif (peri == "Tilt%20Left"):
             http_request = self.base_request_in + "/" + "orientation" + "/" + peri + "/" + str(self.device_s_no)
-        elif(peri == "Logo%20Up"):
+        elif (peri == "Logo%20Up"):
             http_request = self.base_request_in + "/" + "orientation" + "/" + peri + "/" + str(self.device_s_no)
-        elif(peri == "Logo%20Down"):
+        elif (peri == "Logo%20Down"):
             http_request = self.base_request_in + "/" + "orientation" + "/" + peri + "/" + str(self.device_s_no)
         else:
             http_request = self.base_request_in + "/" + peri + "/" + str(value) + "/" + str(self.device_s_no)
@@ -432,7 +432,7 @@ class Microbit:
             print(CONNECTION_SERVER_CLOSED)
             sys.exit()
         response = response_request.read().decode('utf-8')
-        if(response == "Not Connected"):
+        if (response == "Not Connected"):
             print(NO_CONNECTION)
             sys.exit()
         time.sleep(0.01)        # Hack to prevent http requests from overloading the BlueBird Connector
@@ -448,7 +448,7 @@ class Microbit:
         except:
             print(CONNECTION_SERVER_CLOSED)
             sys.exit()
-        if(response_request.read() == b'200'):
+        if (response_request.read() == b'200'):
             response = 1
         else:
             response = 0
@@ -485,7 +485,7 @@ class Hummingbird(Microbit):
         """Class initializer. Specify device letter A, B or C."""
 
         # Check if the length of the array to form a symbol is greater than 25"""
-        if('ABC'.find(device) != -1):
+        if ('ABC'.find(device) != -1):
             self.device_s_no = device
             # Check if device is connected and is a hummingbird
             if not self.isConnectionValid():
@@ -672,7 +672,7 @@ class Hummingbird(Microbit):
 
         response = self.getSensor(port)
         dial_value = int(response * DIAL_FACTOR)
-        if(dial_value > 100):
+        if (dial_value > 100):
             dial_value = 100
         return dial_value
 
@@ -697,7 +697,7 @@ class Hummingbird(Microbit):
             print(CONNECTION_SERVER_CLOSED)
             sys.exit()
         response = response_request.read().decode('utf-8')
-        if(response == "Not Connected"):
+        if (response == "Not Connected"):
             print(NO_CONNECTION)
             sys.exit()
         time.sleep(0.01)        # Hack to prevent http requests from overloading the BlueBird Connector
@@ -713,7 +713,7 @@ class Hummingbird(Microbit):
         except:
             print(CONNECTION_SERVER_CLOSED)
             sys.exit()
-        if(response_request.read() == b'200'):
+        if (response_request.read() == b'200'):
             response = 1
         else:
             response = 0
@@ -747,7 +747,7 @@ class Finch(Microbit):
     def __init__(self, device='A'):
         """Class initializer. """
 
-        if('ABC'.find(device) != -1):  # check for valid device letter
+        if ('ABC'.find(device) != -1):  # check for valid device letter
             self.device_s_no = device
 
             if not self.isConnectionValid():
@@ -834,7 +834,7 @@ class Finch(Microbit):
         http_request = self.base_request_out + requestString + str(self.device_s_no)
         response = self._send_httprequest(http_request)
 
-        if(response == "200"):
+        if (response == "200"):
             return 1
         else:
             return 0
@@ -853,7 +853,7 @@ class Finch(Microbit):
         http_request = self.base_request_out + requestString
         response = self._send_httprequest(http_request)
 
-        if(response == "200"):
+        if (response == "200"):
             return 1
         else:
             return 0
@@ -909,7 +909,7 @@ class Finch(Microbit):
         # Send HTTP request
         response = self.__send_httprequest_move(motion, direction, length, speed)
 
-        while (not(done) and not(isMoving == "Not Connected")):
+        while (not (done) and not (isMoving == "Not Connected")):
             wasMoving = isMoving
             time.sleep(0.01)
             isMoving = self.__send_httprequest_in("finchIsMoving", "static")
@@ -1060,7 +1060,7 @@ class Finch(Microbit):
         # Check for orientation of each device and if true return that state
         for targetOrientation in orientations:
             response = self.__getSensor("finchOrientation", targetOrientation)
-            if(response == "true"):
+            if (response == "true"):
                 return orientation_result[orientations.index(targetOrientation)]
 
         # If we are in a state in which none of the above seven states are true

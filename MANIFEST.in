@@ -8,6 +8,7 @@ include .editorconfig
 include .github/workflows/github-actions.yml
 include .pre-commit-config.yaml
 include .readthedocs.yml
+include .python-version
 include pytest.ini
 include tox.ini
 
@@ -18,3 +19,5 @@ include LICENSE
 include README.rst
 
 global-exclude *.py[cod] __pycache__/* *.so *.dylib
+
+recursive-include examples *.py
