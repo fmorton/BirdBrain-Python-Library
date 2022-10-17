@@ -84,7 +84,8 @@ class Microbit:
         http_request = self.base_request_in + "/" + "orientation" + "/" + "Shake" + "/" + str(self.device_s_no)
         try:
             response_request = urllib.request.urlopen(http_request)
-        except:
+        except (ConnectionError, urllib.error.URLError):
+            print("DEBUG: caught the connection valid exception")
             print(CONNECTION_SERVER_CLOSED)
             return False
         response = response_request.read().decode('utf-8')
@@ -302,7 +303,7 @@ class Microbit:
 
         try:
             value = int(response)
-        except:
+        except (ConnectionError, urllib.error.URLError):
             print("Error in getSound: " + response)
             sys.exit()
 
@@ -316,7 +317,7 @@ class Microbit:
 
         try:
             value = int(response)
-        except:
+        except (ConnectionError, urllib.error.URLError):
             print("Error in getTemperature: " + response)
             sys.exit()
 
@@ -366,7 +367,7 @@ class Microbit:
         """Send an HTTP request and return the result."""
         try:
             response_request = urllib.request.urlopen(http_request)
-        except:
+        except (ConnectionError, urllib.error.URLError):
             print(CONNECTION_SERVER_CLOSED)
             sys.exit()
 
@@ -392,7 +393,7 @@ class Microbit:
                 response = 1
             else:
                 response = 0
-        except:
+        except (ConnectionError, urllib.error.URLError):
             print(CONNECTION_SERVER_CLOSED)
             sys.exit()
         time.sleep(0.01)        # Hack to prevent http requests from overloading the BlueBird Connector
@@ -428,7 +429,7 @@ class Microbit:
 
         try:
             response_request = urllib.request.urlopen(http_request)
-        except:
+        except (ConnectionError, urllib.error.URLError):
             print(CONNECTION_SERVER_CLOSED)
             sys.exit()
         response = response_request.read().decode('utf-8')
@@ -445,7 +446,7 @@ class Microbit:
         http_request = self.stopall + "/" + str(self.device_s_no)
         try:
             response_request = urllib.request.urlopen(http_request)
-        except:
+        except (ConnectionError, urllib.error.URLError):
             print(CONNECTION_SERVER_CLOSED)
             sys.exit()
         if (response_request.read() == b'200'):
@@ -693,7 +694,7 @@ class Hummingbird(Microbit):
         http_request = self.base_request_in + "/" + peri + "/" + str(port) + "/" + str(self.device_s_no)
         try:
             response_request = urllib.request.urlopen(http_request)
-        except:
+        except (ConnectionError, urllib.error.URLError):
             print(CONNECTION_SERVER_CLOSED)
             sys.exit()
         response = response_request.read().decode('utf-8')
@@ -710,7 +711,7 @@ class Hummingbird(Microbit):
         http_request = self.base_request_out + "/" + peri + "/" + str(port) + "/" + str(value) + "/" + str(self.device_s_no)
         try:
             response_request = urllib.request.urlopen(http_request)
-        except:
+        except (ConnectionError, urllib.error.URLError):
             print(CONNECTION_SERVER_CLOSED)
             sys.exit()
         if (response_request.read() == b'200'):
