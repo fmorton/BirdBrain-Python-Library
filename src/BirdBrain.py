@@ -16,9 +16,9 @@
 # similarly includes function to control the inputs and outputs
 # of the Finch robot.
 # --------------------------------------------------------------
-import urllib.request
 import sys
 import time
+import urllib.request
 # --------------------------------------------------------------
 # Constants
 
