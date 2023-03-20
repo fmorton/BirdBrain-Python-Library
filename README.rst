@@ -66,11 +66,13 @@ You can also install the in-development version with::
     pip install https://github.com/fmorton/BirdBrain-Python-Library/archive/main.zip
 
 
+
 Documentation
 =============
 
+Finch - https://learn.birdbraintechnologies.com/finch/python/library/
 
-https://BirdBrain-Python-Library.readthedocs.io/
+Hummingbird - https://learn.birdbraintechnologies.com/hummingbirdbit/python/library/
 
 
 Development
