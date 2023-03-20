@@ -20,7 +20,7 @@ def read(*names, **kwargs):
 
 setup(
     name='birdbrain-python-library',
-    version='0.0.9',
+    version='0.0.10',
     license='LGPL-3.0-only',
     description='Python Library for Birdbrain Technologies Hummingbird Bit and Finch 2',
     long_description='{}\n{}'.format(

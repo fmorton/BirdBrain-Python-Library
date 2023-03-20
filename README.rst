@@ -70,9 +70,9 @@ You can also install the in-development version with::
 Documentation
 =============
 
-Finch - https://learn.birdbraintechnologies.com/finch/python/library/
+Finch: https://learn.birdbraintechnologies.com/finch/python/library/
 
-Hummingbird - https://learn.birdbraintechnologies.com/hummingbirdbit/python/library/
+Hummingbird: https://learn.birdbraintechnologies.com/hummingbirdbit/python/library/
 
 
 Development
