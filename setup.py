@@ -20,7 +20,7 @@ def read(*names, **kwargs):
 
 setup(
     name='birdbrain-python-library',
-    version='0.0.10',
+    version='0.0.11',
     license='LGPL-3.0-only',
     description='Python Library for Birdbrain Technologies Hummingbird Bit and Finch 2',
     long_description='{}\n{}'.format(
@@ -59,8 +59,12 @@ setup(
         'Topic :: Utilities',
     ],
     project_urls={
-        'Documentation': 'https://BirdBrain-Python-Library.readthedocs.io/',
-        'Changelog': 'https://BirdBrain-Python-Library.readthedocs.io/en/latest/changelog.html',
+        #'Documentation': 'https://BirdBrain-Python-Library.readthedocs.io/',
+        #'Changelog': 'https://BirdBrain-Python-Library.readthedocs.io/en/latest/changelog.html',
+        #'Issue Tracker': 'https://github.com/fmorton/BirdBrain-Python-Library/issues',
+        'Hummingbird Docs': 'https://learn.birdbraintechnologies.com/hummingbirdbit/python/library/',
+        'Finch Docs': 'https://learn.birdbraintechnologies.com/finch/python/library/',
+        'Source': 'https://github.com/fmorton/BirdBrain-Python-Library',
         'Issue Tracker': 'https://github.com/fmorton/BirdBrain-Python-Library/issues',
     },
     keywords=[

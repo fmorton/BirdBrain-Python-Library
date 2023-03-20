@@ -20,7 +20,7 @@ project = 'BirdBrain-Python-Library'
 year = '2022'
 author = 'Frank Morton'
 copyright = '{0}, {1}'.format(year, author)
-version = release = '0.0.10'
+version = release = '0.0.11'
 
 pygments_style = 'trac'
 templates_path = ['.']
